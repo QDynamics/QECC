@@ -3,29 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>量子计算与密码学：RSA破解路径与qLDPC技术批判性分析</title>
+    <title>【内参】量子计算威胁评估与国家密码战略部署报告</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap');
         
         body {
             font-family: 'Noto Sans SC', sans-serif;
-            background-color: #f8fafc; /* slate-50 */
+            background-color: #f1f5f9; /* slate-100, professional neutral background */
             color: #0f172a; /* slate-900 */
         }
 
-        /* 强制覆盖滚动条样式，使其更优雅 */
+        /* 覆盖滚动条样式，严肃内敛 */
         ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #f1f5f9; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        ::-webkit-scrollbar-track { background: #e2e8f0; }
+        ::-webkit-scrollbar-thumb { background: #64748b; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
 
-        .glass-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(226, 232, 240, 0.8);
+        .glass-panel {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            border-radius: 0.75rem;
         }
 
         .chart-container {
@@ -34,406 +34,399 @@
             max-width: 800px;
             margin-left: auto;
             margin-right: auto;
-            height: 400px;
-            max-height: 50vh;
+            height: 350px;
+            max-height: 400px;
         }
 
-        .crypto-card {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        /* 交互卡片悬浮效果 */
+        .interactive-card {
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
         }
-        .crypto-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        .interactive-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(15, 23, 42, 0.1);
+            border-color: #3b82f6;
         }
 
+        /* 标签页高亮状态 */
         .tab-active {
-            border-bottom: 2px solid #2563eb; /* blue-600 */
-            color: #2563eb;
-            font-weight: 600;
+            background-color: #1e293b; /* slate-800 */
+            color: #ffffff !important;
+            font-weight: 700;
+        }
+        
+        /* 密级标识 */
+        .classification-badge {
+            background: repeating-linear-gradient(
+                45deg,
+                #ef4444,
+                #ef4444 10px,
+                #dc2626 10px,
+                #dc2626 20px
+            );
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
         }
     </style>
 </head>
 <body class="antialiased leading-relaxed">
 
-    <!-- Chosen Palette: Slate & Blue/Red Accents. Slate for neutral academic background. Blue for neutral info/interaction. Red for vulnerabilities, Green for secure areas. -->
+    <!-- Chosen Palette: Slate (900/800) for authority, Red (600/500) for urgent threats, Blue (600/100) for information, Emerald for secure status. Represents a serious National Security Agency briefing interface. -->
     
     <!-- Application Structure Plan: 
-         1. Fixed Top Navigation for easy jumping between specific analytical questions.
-         2. Executive Summary & Context setting.
-         3. Section 1: RSA Timeline & Hurdles (Answering Q1) - Uses a vertical interactive timeline and Chart.js for qubit scaling.
-         4. Section 2: Global Crypto Impact (Answering Q2) - Uses an interactive grid of cryptographic primitives showing selective vulnerability.
-         5. Section 3: The qLDPC Dilemma (Answering Q3 & Q4) - Technical deep dive with toggleable state comparisons addressing the specific logical gate issue.
-         6. Section 4: Academic Evaluation (Contributions/Limitations) - Structured text analysis.
-         7. Section 5: National Security Recommendations - Actionable bullet points.
-         This structure directly addresses the user's complex, multi-part query logically. -->
+         1. Fixed Top Nav: Quick access to intelligence sections.
+         2. Executive Summary: High-level overview with classification markings to set the tone.
+         3. Section 1: Threat Assessment (Quantum & qLDPC) - Uses the Chart.js timeline and critique of academic claims to provide NSA with realistic threat timelines.
+         4. Section 2: Blast Radius - Visual grid showing exactly which national assets are vulnerable (Asymmetric vs Symmetric).
+         5. Section 3: Defense Solutions (PQC vs QKD/QRNG) - NEW SECTION. Uses an interactive comparative layout to evaluate physics-based vs math-based defenses, addressing NSA's specific infrastructure concerns.
+         6. Section 4: Strategic Directives - Actionable, policy-level recommendations for NSA deployment. -->
 
     <!-- Visualization & Content Choices:
-         - Qubit Scaling: Chart.js Bar Chart (Log Scale). Goal: Compare current state vs requirement. Justification: Log scale is necessary to show the massive gap between ~10^3 physical qubits today and ~10^7 needed for Surface Code RSA cracking.
-         - Crypto Impact Blast Radius: Interactive DOM Cards. Goal: Categorize algorithms. Justification: Better than a table; allows user to click to reveal *why* AES is safe but RSA isn't.
-         - qLDPC Technical Trade-offs: Interactive HTML/CSS Toggles. Goal: Explain complex quantum error correction concepts. Justification: Compares Surface Code (high overhead, easy gates) vs qLDPC (low overhead, hard gates) directly addressing the user's specific memory about missing universal gates.
-         CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. Canvas (Chart.js) and standard DOM elements used exclusively. -->
+         - Threat Timeline: Chart.js Bar Chart (Log Scale). Goal: Show the immense gap between current tech and RSA-breaking tech, filtering out academic hype.
+         - Vulnerability Grid: DOM Cards with status indicators. Goal: Quick triage of cryptographic primitives.
+         - Defense Matrix: Interactive CSS/JS flex layout. Goal: Compare QKD, QRNG, and PQC directly. Interaction: Clicking expands detailed pros/cons/NSA deployment advice. Justification: Executive decision-makers need side-by-side comparative analysis of infrastructure costs vs theoretical security.
+         CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. All visuals are HTML/CSS or Chart.js Canvas. -->
 
     <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-50 glass-card border-b border-slate-200">
+    <nav class="fixed top-0 w-full z-50 bg-slate-900 border-b border-slate-700 shadow-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex items-center">
-                    <span class="text-xl font-bold text-slate-800 tracking-tight">🔬 量子密码分析评估报告</span>
+            <div class="flex justify-between h-14">
+                <div class="flex items-center space-x-4">
+                    <span class="text-red-500 text-xl">🛡️</span>
+                    <span class="text-lg font-bold text-white tracking-widest">国家安全局战略内参</span>
                 </div>
                 <div class="hidden md:flex items-center space-x-6">
-                    <a href="#rsa-timeline" class="text-sm font-medium text-slate-600 hover:text-blue-600 transition">破解距离</a>
-                    <a href="#crypto-impact" class="text-sm font-medium text-slate-600 hover:text-blue-600 transition">密码学影响</a>
-                    <a href="#qldpc-analysis" class="text-sm font-medium text-slate-600 hover:text-blue-600 transition">qLDPC深层解析</a>
-                    <a href="#evaluation" class="text-sm font-medium text-slate-600 hover:text-blue-600 transition">文献评价</a>
-                    <a href="#natsec" class="text-sm font-medium text-slate-600 hover:text-blue-600 transition">国安建议</a>
+                    <a href="#threat-intel" class="text-sm font-medium text-slate-300 hover:text-white transition">威胁研判</a>
+                    <a href="#asset-vuln" class="text-sm font-medium text-slate-300 hover:text-white transition">资产脆弱性</a>
+                    <a href="#defense-matrix" class="text-sm font-medium text-slate-300 hover:text-white transition">防御技术矩阵</a>
+                    <a href="#directives" class="text-sm font-medium text-slate-300 hover:text-white transition">行动指令</a>
                 </div>
             </div>
         </div>
     </nav>
 
     <!-- Main Content -->
-    <main class="pt-24 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-16">
+    <main class="pt-20 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12">
 
-        <!-- Header / Intro -->
-        <header class="text-center max-w-4xl mx-auto space-y-4">
-            <div class="inline-flex items-center px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-sm font-medium mb-4">
-                <span class="mr-2">学术审查与调研报告</span>
+        <!-- Executive Summary Header -->
+        <header class="glass-panel p-8 mt-4 relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-2 classification-badge"></div>
+            <div class="flex justify-between items-start mb-6">
+                <div>
+                    <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">
+                        后量子时代国家密码基础设施安全评估
+                    </h1>
+                    <p class="text-slate-500 mt-2 font-mono text-sm">编号: NSA-QRA-2026-04 | 状态: 供高层决策参考</p>
+                </div>
+                <div class="bg-red-100 text-red-800 border border-red-200 px-3 py-1 rounded font-bold text-sm">
+                    绝密 / TOP SECRET
+                </div>
             </div>
-            <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight">
-                距离真正破解RSA还有多远？
-            </h1>
-            <p class="text-xl text-slate-600 mt-4 text-justify">
-                基于对最新量子计算架构（含qLDPC码）相关论文的严谨审查，本报告旨在回应关于量子计算机破解RSA密码体系的现实进度、对经典密码学的全面影响，以及当前量子纠错（特别是qLDPC）在逻辑门操作上的致命技术瓶颈。
-            </p>
+            
+            <div class="bg-slate-50 border-l-4 border-slate-800 p-5 rounded-r-lg text-slate-700 text-justify leading-relaxed">
+                <strong class="text-slate-900">核心摘要：</strong> 
+                随着量子计算（特别是容错量子纠错如qLDPC架构）的学术宣称不断涌现，评估其对现行RSA/ECC公钥体系的真实威胁刻不容缓。本报告穿透学术界的乐观预测，为国家安全局提供客观的<strong>破解时间线研判</strong>。同时，针对下一代国家级加密网络的建设，系统性评估了<strong>后量子密码（PQC）</strong>与<strong>量子密码（QKD/QRNG）</strong>的战略优劣势，为我国关键信息基础设施的换代提供决策依据。
+            </div>
         </header>
 
-        <!-- Section 1: RSA Timeline -->
-        <section id="rsa-timeline" class="scroll-mt-24">
-            <div class="mb-8">
-                <h2 class="text-3xl font-bold text-slate-800 mb-4 border-l-4 border-blue-600 pl-4">1. 破解RSA密码体系的现实距离与核心障碍</h2>
-                <p class="text-slate-600 text-lg">
-                    评估宣称破解RSA的文章时，最容易陷入的误区是混淆“逻辑量子比特”与“物理量子比特”。要运行Shor算法破解RSA-2048，需要数千个完美的逻辑比特，而在当前噪声环境下，这通常需要数百万个物理比特。
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <!-- Data Visualization -->
-                <div class="glass-card p-6 rounded-2xl">
-                    <h3 class="text-lg font-bold text-slate-700 mb-2 text-center">破解RSA-2048所需物理量子比特规模对比 (对数坐标)</h3>
-                    <p class="text-sm text-slate-500 text-center mb-6">不同纠错码架构下的资源开销差异</p>
+        <!-- Section 1: Threat Intelligence (qLDPC & RSA) -->
+        <section id="threat-intel" class="scroll-mt-20">
+            <h2 class="text-2xl font-bold text-slate-900 mb-6 flex items-center">
+                <span class="bg-slate-900 text-white w-8 h-8 flex items-center justify-center rounded-full mr-3 text-sm">1</span>
+                威胁时间线研判：学术宣称与工程现实的鸿沟
+            </h2>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Qubit Scaling Chart -->
+                <div class="glass-panel p-6">
+                    <h3 class="text-lg font-bold text-slate-800 mb-2">破解RSA-2048所需物理资源预估 (对数坐标)</h3>
+                    <p class="text-sm text-slate-500 mb-6">需警惕文献中对“qLDPC大幅降低资源”的过度解读</p>
                     <div class="chart-container">
                         <canvas id="qubitChart"></canvas>
                     </div>
-                    <div class="mt-4 text-sm text-slate-600 bg-slate-50 p-4 rounded-lg">
-                        <span class="font-bold text-slate-800">图表解读：</span> 当前顶尖硬件水平（如IBM Condor）仅在千级物理比特徘徊，且错误率偏高。传统的表面码（Surface Code）需要约2000万物理比特才能破解RSA。理论上的qLDPC能将需求降至百万级甚至十万级，但它引入了目前无法逾越的硬件连通性灾难。
-                    </div>
+                    <p class="mt-4 text-xs text-slate-500 bg-slate-50 p-3 rounded">
+                        数据研判：即便采用最激进的qLDPC架构理论，距破解RSA仍有百倍以上的物理比特数量级差距。
+                    </p>
                 </div>
 
-                <!-- Interactive Obstacle List -->
-                <div class="space-y-6">
-                    <h3 class="text-2xl font-bold text-slate-800">到底还要解决多少问题？</h3>
-                    
-                    <div class="space-y-4">
-                        <div class="p-5 bg-white border border-slate-200 rounded-xl shadow-sm border-l-4 border-l-red-500 cursor-pointer hover:bg-slate-50 transition" onclick="toggleDetail('obs1')">
-                            <div class="flex justify-between items-center">
-                                <h4 class="font-bold text-slate-800 text-lg">🚧 错误率壁垒 (Fidelity Threshold)</h4>
-                                <span class="text-slate-400">▼</span>
-                            </div>
-                            <p id="obs1" class="hidden mt-3 text-slate-600 text-sm">目前的双量子比特门保真度通常在99%到99.9%之间。要进行有效的大规模纠错，必须将物理门错误率降低到至少99.99%（万分之一）以下，否则纠错过程产生的错误会比它纠正的还要多。</p>
+                <!-- Academic Critique (qLDPC reality) -->
+                <div class="space-y-4">
+                    <div class="glass-panel p-6 bg-slate-900 text-white">
+                        <h3 class="text-xl font-bold mb-4 text-red-400">情报纠偏：qLDPC的“逻辑门悖论”</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed mb-4 text-justify">
+                            近期大量文献宣称qLDPC（量子低密度奇偶校验码）可将破解RSA所需的物理比特数降低90%以上。<strong>经我局技术委员会审查，此推论存在重大工程缺陷。</strong>
+                        </p>
+                        <ul class="space-y-3 text-sm text-slate-300">
+                            <li class="flex items-start">
+                                <span class="text-red-500 mr-2">⚠️</span>
+                                <div>
+                                    <strong class="text-white">缺少普适逻辑门操作：</strong> 根据Eastin-Knill定理，qLDPC无法以容错方式横向执行连续逻辑门。文献中展示的极低资源开销，往往<strong>直接假设了理想的逻辑门</strong>，这在运行Shor算法（需要海量非Clifford门）时是致命的盲区。
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-red-500 mr-2">⚠️</span>
+                                <div>
+                                    <strong class="text-white">硬件连通性灾难：</strong> qLDPC要求物理量子比特进行复杂的长程交叉连接，在现有的超导或自旋量子芯片上强行布线会导致灾难性的串扰噪声（Crosstalk）。
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="mt-4 pt-4 border-t border-slate-700 text-sm font-semibold text-blue-300">
+                            👉 研判结论：真正能运行Shor算法的容错量子计算机，在10-15年内仍属极低概率事件。但必须防范敌对势力的 "现在收集，未来解密" (SNDL) 战略。
                         </div>
-
-                        <div class="p-5 bg-white border border-slate-200 rounded-xl shadow-sm border-l-4 border-l-orange-500 cursor-pointer hover:bg-slate-50 transition" onclick="toggleDetail('obs2')">
-                            <div class="flex justify-between items-center">
-                                <h4 class="font-bold text-slate-800 text-lg">🕸️ 硬件连通性灾难 (Connectivity)</h4>
-                                <span class="text-slate-400">▼</span>
-                            </div>
-                            <p id="obs2" class="hidden mt-3 text-slate-600 text-sm">特别是在提及qLDPC码时，它要求非局部的量子比特之间进行长距离连接。当前的超导量子芯片或半导体自旋芯片主要依赖于2D平面的近邻连接（Nearest-neighbor）。实现qLDPC所需的复杂3D甚至全连通性，在工程制造上目前是科幻级别。</p>
-                        </div>
-
-                        <div class="p-5 bg-white border border-slate-200 rounded-xl shadow-sm border-l-4 border-l-yellow-500 cursor-pointer hover:bg-slate-50 transition" onclick="toggleDetail('obs3')">
-                            <div class="flex justify-between items-center">
-                                <h4 class="font-bold text-slate-800 text-lg">⏱️ 经典控制系统瓶颈 (Classical Overhead)</h4>
-                                <span class="text-slate-400">▼</span>
-                            </div>
-                            <p id="obs3" class="hidden mt-3 text-slate-600 text-sm">几百万个物理量子比特需要数以百万计的微波同轴线缆连接到室温控制仪器。冷却系统的制冷功率、解码算法的实时计算速度（必须快于量子退相干时间）目前均不存在可行的工程方案。</p>
-                        </div>
-                    </div>
-                    <div class="p-4 bg-blue-50 text-blue-800 rounded-lg text-sm font-medium mt-4">
-                        💡 结论：距离真正破解RSA，并非单纯增加量子比特数量的问题，而是涉及基础材料学、微波工程、极低温制冷及高速经典计算等全方位的工程学长征。乐观估计需 15-20 年，悲观估计可能由于工程极限永远无法实现经济高效的破解。
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Section 2: Cryptography Impact -->
-        <section id="crypto-impact" class="scroll-mt-24">
-            <div class="mb-8">
-                <h2 class="text-3xl font-bold text-slate-800 mb-4 border-l-4 border-red-600 pl-4">2. 破解RSA = 破坏所有经典加密？</h2>
-                <p class="text-slate-600 text-lg">
-                    <strong class="text-red-600">这是媒体最常见的误读。</strong> 破解RSA（基于大整数分解）并不意味着对所有经典密码体系的“破坏性打击”。Shor算法具有高度特异性。
-                </p>
-            </div>
-
+        <!-- Section 2: Vulnerability -->
+        <section id="asset-vuln" class="scroll-mt-20">
+            <h2 class="text-2xl font-bold text-slate-900 mb-6 flex items-center">
+                <span class="bg-slate-900 text-white w-8 h-8 flex items-center justify-center rounded-full mr-3 text-sm">2</span>
+                国家密码资产脆弱性矩阵
+            </h2>
+            
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Asymmetric -->
-                <div class="glass-card rounded-2xl p-6 border-t-4 border-t-red-500">
-                    <div class="text-3xl mb-4">💥</div>
-                    <h3 class="text-xl font-bold text-slate-800 mb-2">非对称加密 / 公钥</h3>
-                    <p class="text-sm font-semibold text-red-600 mb-4">状态：彻底瓦解 (Shor算法)</p>
-                    <ul class="space-y-2 text-sm text-slate-600">
-                        <li class="flex items-center"><span>❌</span> <span class="ml-2 font-mono">RSA</span> (因子分解)</li>
-                        <li class="flex items-center"><span>❌</span> <span class="ml-2 font-mono">ECC (ECDSA)</span> (椭圆曲线)</li>
-                        <li class="flex items-center"><span>❌</span> <span class="ml-2 font-mono">Diffie-Hellman</span> (离散对数)</li>
-                    </ul>
-                    <p class="text-xs text-slate-500 mt-4 pt-4 border-t border-slate-100">这些算法支撑着目前的HTTPS/TLS握手和数字签名。一旦量子计算机成熟，历史截获的流量可被解密（"Harvest Now, Decrypt Later"）。</p>
-                </div>
-
-                <!-- Symmetric -->
-                <div class="glass-card rounded-2xl p-6 border-t-4 border-t-yellow-500">
-                    <div class="text-3xl mb-4">🛡️</div>
-                    <h3 class="text-xl font-bold text-slate-800 mb-2">对称加密</h3>
-                    <p class="text-sm font-semibold text-yellow-600 mb-4">状态：部分削弱，依然安全</p>
-                    <ul class="space-y-2 text-sm text-slate-600">
-                        <li class="flex items-center"><span>⚠️</span> <span class="ml-2 font-mono">AES-128</span> (不建议)</li>
-                        <li class="flex items-center"><span>✅</span> <span class="ml-2 font-mono">AES-256</span> (抗量子安全)</li>
-                        <li class="flex items-center"><span>✅</span> <span class="ml-2 font-mono">ChaCha20</span> (增加密钥长度)</li>
-                    </ul>
-                    <p class="text-xs text-slate-500 mt-4 pt-4 border-t border-slate-100">Grover算法可以提供二次加速搜索。这意味着破解AES-256的难度降低到了经典破解AES-128的水平。因此，只需加倍密钥长度，对称加密面对量子计算机依然坚不可摧。</p>
-                </div>
-
-                <!-- Hashing -->
-                <div class="glass-card rounded-2xl p-6 border-t-4 border-t-green-500">
-                    <div class="text-3xl mb-4">🔒</div>
-                    <h3 class="text-xl font-bold text-slate-800 mb-2">哈希函数</h3>
-                    <p class="text-sm font-semibold text-green-600 mb-4">状态：高度安全</p>
-                    <ul class="space-y-2 text-sm text-slate-600">
-                        <li class="flex items-center"><span>✅</span> <span class="ml-2 font-mono">SHA-256</span></li>
-                        <li class="flex items-center"><span>✅</span> <span class="ml-2 font-mono">SHA-3</span></li>
-                        <li class="flex items-center"><span>✅</span> <span class="ml-2 font-mono">SM3</span></li>
-                    </ul>
-                    <p class="text-xs text-slate-500 mt-4 pt-4 border-t border-slate-100">抗碰撞性和原像抗性几乎不受量子计算影响。Grover算法对寻找哈希碰撞的加速效果极小，当前的哈希标准在后量子时代无需大规模替换。</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Section 3: qLDPC Deep Dive -->
-        <section id="qldpc-analysis" class="scroll-mt-24">
-            <div class="mb-8">
-                <h2 class="text-3xl font-bold text-slate-800 mb-4 border-l-4 border-purple-600 pl-4">3. qLDPC的致命伤：逻辑门操作的缺失</h2>
-                <div class="bg-purple-50 p-6 rounded-xl border border-purple-100 mb-6">
-                    <p class="text-slate-700 font-medium text-lg italic">
-                        "我如果没记错的话，好像qLDPC不存在普适逻辑操作的方案，甚至很多qLDPC压根就还没找到逻辑操作..."
-                    </p>
-                    <p class="mt-2 text-slate-800 font-bold">
-                        评述：您的记忆非常准确，且直击要害。这是当前qLDPC研究中最尴尬、也是被很多宣称"大幅降低量子比特需求"的文章刻意淡化的核心问题。
-                    </p>
-                </div>
-            </div>
-
-            <div class="glass-card rounded-2xl overflow-hidden shadow-sm">
-                <div class="flex border-b border-slate-200 bg-slate-50">
-                    <button class="flex-1 py-4 text-center font-bold tab-btn tab-active" onclick="switchTab('tab-surface', this)">表面码 (Surface Code) 现状</button>
-                    <button class="flex-1 py-4 text-center font-bold text-slate-500 tab-btn" onclick="switchTab('tab-qldpc', this)">qLDPC 码困境</button>
+                <div class="glass-panel p-6 border-t-4 border-red-600">
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">非对称密码体制</h3>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <span class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded font-bold">全线崩溃 (Shor算法)</span>
+                    </div>
+                    <p class="text-sm text-slate-600 mb-3">涵盖：RSA, ECC (SM2), Diffie-Hellman</p>
+                    <p class="text-xs text-slate-500 bg-slate-50 p-2 rounded"><strong>国安风险：</strong> 支撑目前政务网数字签名、密钥协商的核心机制。历史截获的高密级通信流量面临彻底暴露风险。</p>
                 </div>
                 
-                <div class="p-8">
-                    <!-- Surface Code Tab -->
-                    <div id="tab-surface" class="tab-content block">
-                        <div class="flex flex-col md:flex-row gap-8 items-center">
-                            <div class="flex-1">
-                                <h3 class="text-2xl font-bold text-slate-800 mb-4">为什么大家都用表面码？</h3>
-                                <p class="text-slate-600 mb-4 text-justify">
-                                    表面码虽然编码率极低（需要成千上万个物理比特来保护一个逻辑比特），但它具有一个压倒性的优势：<strong class="text-blue-600">极其容易实现容错的逻辑门（Transversal Gates 或 Lattice Surgery）</strong>。
-                                </p>
-                                <ul class="list-disc pl-5 space-y-2 text-slate-600">
-                                    <li><strong>连通性友好：</strong> 只需要二维平面的相邻量子比特通信。</li>
-                                    <li><strong>逻辑门简单：</strong> 通过简单的物理层面的几何操作（如晶格手术），就能组合出Clifford群门。</li>
-                                    <li><strong>普适计算：</strong> 结合魔法态蒸馏（Magic State Distillation），可以构建T门，从而实现普适量子计算。</li>
-                                </ul>
-                            </div>
-                            <div class="flex-1 bg-slate-100 p-6 rounded-xl text-center">
-                                <span class="text-5xl">🟩🟩🟩</span><br>
-                                <span class="text-5xl">🟩🟩🟩</span><br>
-                                <span class="text-5xl">🟩🟩🟩</span>
-                                <p class="mt-4 text-sm font-mono text-slate-500">2D Grid: High overhead, easy math.</p>
-                            </div>
+                <div class="glass-panel p-6 border-t-4 border-amber-500">
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">对称密码体制</h3>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <span class="bg-amber-100 text-amber-800 text-xs px-2 py-1 rounded font-bold">安全降级 (Grover算法)</span>
+                    </div>
+                    <p class="text-sm text-slate-600 mb-3">涵盖：AES, SM4, ChaCha20</p>
+                    <p class="text-xs text-slate-500 bg-slate-50 p-2 rounded"><strong>国安风险：</strong> 量子搜索可提供二次加速。AES-128的有效强度降至2^64，不再安全。<strong>必须全面强制升级至AES-256或SM4-256。</strong></p>
+                </div>
+
+                <div class="glass-panel p-6 border-t-4 border-emerald-600">
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">哈希算法</h3>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <span class="bg-emerald-100 text-emerald-800 text-xs px-2 py-1 rounded font-bold">抗量子安全</span>
+                    </div>
+                    <p class="text-sm text-slate-600 mb-3">涵盖：SHA-256, SHA-3, SM3</p>
+                    <p class="text-xs text-slate-500 bg-slate-50 p-2 rounded"><strong>国安风险：</strong> 量子计算对寻找哈希碰撞的加速极小。现有256位以上的哈希算法在后量子时代依然坚如磐石，无需更换。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Defense Solutions (PQC vs QKD) -->
+        <section id="defense-matrix" class="scroll-mt-20">
+            <div class="mb-6 flex justify-between items-end">
+                <h2 class="text-2xl font-bold text-slate-900 flex items-center">
+                    <span class="bg-slate-900 text-white w-8 h-8 flex items-center justify-center rounded-full mr-3 text-sm">3</span>
+                    防御技术矩阵：后量子密码 (PQC) vs 量子加密 (QKD/QRNG)
+                </h2>
+            </div>
+            <p class="text-slate-600 mb-6">针对国家级网络的换代升级，必须在“基于数学困难的PQC”与“基于物理定律的量子加密”之间做出战略抉择。点击下方分类查看我局深度评估。</p>
+
+            <!-- Interactive Tab Navigation -->
+            <div class="flex flex-wrap gap-2 mb-6" id="defense-tabs">
+                <button onclick="showDefense('pqc', this)" class="defense-tab-btn flex-1 min-w-[150px] py-3 px-4 rounded-t-lg bg-slate-200 text-slate-600 font-bold tab-active">后量子密码 (PQC)</button>
+                <button onclick="showDefense('qkd', this)" class="defense-tab-btn flex-1 min-w-[150px] py-3 px-4 rounded-t-lg bg-slate-200 text-slate-600 font-bold hover:bg-slate-300">量子密钥分发 (QKD)</button>
+                <button onclick="showDefense('qrng', this)" class="defense-tab-btn flex-1 min-w-[150px] py-3 px-4 rounded-t-lg bg-slate-200 text-slate-600 font-bold hover:bg-slate-300">量子随机数 (QRNG)</button>
+            </div>
+
+            <!-- Content Areas -->
+            <div class="glass-panel p-8 bg-white border-t-0 rounded-tl-none relative min-h-[400px]">
+                
+                <!-- PQC Content -->
+                <div id="content-pqc" class="defense-content block animate-fade-in">
+                    <div class="flex items-center mb-4">
+                        <span class="text-3xl mr-4">💻</span>
+                        <div>
+                            <h3 class="text-2xl font-bold text-slate-900">后量子密码 (Post-Quantum Cryptography)</h3>
+                            <p class="text-sm font-semibold text-blue-600">安全范式：基于新型数学难题（如格密码、哈希签名），抵抗已知量子算法。</p>
                         </div>
                     </div>
-
-                    <!-- qLDPC Tab -->
-                    <div id="tab-qldpc" class="tab-content hidden">
-                        <div class="flex flex-col md:flex-row gap-8 items-center">
-                            <div class="flex-1">
-                                <h3 class="text-2xl font-bold text-slate-800 mb-4">qLDPC：节省了空间，丢掉了计算</h3>
-                                <p class="text-slate-600 mb-4 text-justify">
-                                    qLDPC（量子低密度奇偶校验码）因其恒定的编码率，理论上能将运行Shor算法所需的物理比特降至此前的1/10甚至更少。但这建立在一个巨大的妥协上：<strong class="text-red-600">Eastin-Knill定理指出，不存在任何量子纠错码可以横向地（transversally）实现连续的普适逻辑门集。</strong>
-                                </p>
-                                <ul class="list-disc pl-5 space-y-2 text-slate-600">
-                                    <li><strong>致命缺陷：</strong> 对于大多数高效率的qLDPC，我们甚至连最基础的逻辑CNOT门都不知道如何以容错的方式高效执行。</li>
-                                    <li><strong>未解决的普适性：</strong> 如果不能执行逻辑门，再好的量子内存也只是一块硬盘，不能用来"计算"（运行Shor算法）。</li>
-                                    <li><strong>当前研究现状：</strong> 虽然近期有一些理论突破（如使用测量的逻辑门、Pieceable Fault Tolerance），但在qLDPC上实现逻辑门引入的庞大开销，往往会抹平其在比特数量上节省的优势。很多文章在评估破解RSA时，<span class="bg-yellow-100 px-1">直接假设了理想的逻辑门</span>，这是不科学的。</li>
-                                </ul>
-                            </div>
-                            <div class="flex-1 bg-slate-100 p-6 rounded-xl text-center relative overflow-hidden">
-                                <!-- Abstract representation of non-local connections -->
-                                <div class="absolute top-1/2 left-1/4 w-4 h-4 bg-purple-500 rounded-full"></div>
-                                <div class="absolute bottom-1/4 right-1/4 w-4 h-4 bg-purple-500 rounded-full"></div>
-                                <div class="absolute top-1/4 right-1/3 w-4 h-4 bg-purple-500 rounded-full"></div>
-                                <svg class="absolute inset-0 w-full h-full" style="pointer-events: none;">
-                                    <line x1="25%" y1="50%" x2="75%" y2="75%" stroke="#a855f7" stroke-width="2" stroke-dasharray="4"/>
-                                    <line x1="25%" y1="50%" x2="66%" y2="25%" stroke="#a855f7" stroke-width="2" stroke-dasharray="4"/>
-                                </svg>
-                                <p class="mt-24 text-sm font-mono text-slate-500">Non-local wiring: Low overhead, impossible math.</p>
-                            </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
+                        <div>
+                            <h4 class="font-bold text-emerald-700 border-b border-emerald-200 pb-2 mb-3">优势 (Pros)</h4>
+                            <ul class="space-y-2 text-sm text-slate-700">
+                                <li>➕ <strong>软件级平滑升级：</strong> 可直接运行在现有的互联网基础设施（路由器、光纤、移动网络）上，无需铺设新硬件。</li>
+                                <li>➕ <strong>端到端兼容性：</strong> 完美支持公钥基础设施（PKI），解决身份认证和数字签名问题。</li>
+                                <li>➕ <strong>成本极低：</strong> 部署成本仅为修改软件协议。</li>
+                            </ul>
                         </div>
+                        <div>
+                            <h4 class="font-bold text-red-700 border-b border-red-200 pb-2 mb-3">劣势与风险 (Cons)</h4>
+                            <ul class="space-y-2 text-sm text-slate-700">
+                                <li>➖ <strong>计算安全性：</strong> 并非绝对安全，理论上未来可能被新型经典数学算法或更强的量子算法攻破（如早期的SIKE算法被单核CPU攻破）。</li>
+                                <li>➖ <strong>性能开销：</strong> 密钥尺寸和签名尺寸远大于RSA/ECC，增加网络带宽负担。</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="mt-8 bg-slate-50 p-4 rounded border-l-4 border-slate-800">
+                        <strong class="text-slate-900 block mb-1">🏛️ 国安局部署定性：</strong>
+                        <p class="text-sm text-slate-600">PQC应作为<strong>国家级广域网、政务外网和商用系统</strong>的绝对主力防御方案。必须采用“混合模式”（传统算法+PQC），并强调<strong>敏捷密码学</strong>（随时可热替换被攻破的算法）。</p>
+                    </div>
+                </div>
+
+                <!-- QKD Content -->
+                <div id="content-qkd" class="defense-content hidden animate-fade-in">
+                    <div class="flex items-center mb-4">
+                        <span class="text-3xl mr-4">📡</span>
+                        <div>
+                            <h3 class="text-2xl font-bold text-slate-900">量子密钥分发 (Quantum Key Distribution)</h3>
+                            <p class="text-sm font-semibold text-purple-600">安全范式：基于物理定律（量子不可克隆定理），窃听必定留下痕迹。</p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
+                        <div>
+                            <h4 class="font-bold text-emerald-700 border-b border-emerald-200 pb-2 mb-3">优势 (Pros)</h4>
+                            <ul class="space-y-2 text-sm text-slate-700">
+                                <li>➕ <strong>信息论安全：</strong> 提供绝对的安全密钥分发，防范“现在收集，未来解密”威胁。</li>
+                                <li>➕ <strong>窃听感知：</strong> 任何中间人尝试测量量子态都会引发误码率上升，从而被合法通信方发现。</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-red-700 border-b border-red-200 pb-2 mb-3">国家级部署瓶颈 (Cons)</h4>
+                            <ul class="space-y-2 text-sm text-slate-700">
+                                <li>➖ <strong>基建噩梦：</strong> 需要专用的暗光纤（不能与经典光网络混用）或卫星中继，成本极其高昂。</li>
+                                <li>➖ <strong>距离限制与可信中继：</strong> 超过100公里衰减严重，必须依赖“可信中继站”。而在国安视角下，<strong>中继站本身就是巨大的单点被攻陷风险</strong>。</li>
+                                <li>➖ <strong>无法解决认证：</strong> QKD仅分发对称密钥，防不了中间人伪装。它仍需依赖古典的PQC签名进行信道认证。</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="mt-8 bg-purple-50 p-4 rounded border-l-4 border-purple-800">
+                        <strong class="text-purple-900 block mb-1">🏛️ 国安局部署定性：</strong>
+                        <p class="text-sm text-purple-800"><strong>拒绝大范围组网。</strong> QKD不适合作为通用互联网防御方案。仅限用于<strong>最高机密级别的点对点直连通信</strong>（如地下指挥所到核心数据中心的专线），且必须配合PQC进行信道认证。</p>
+                    </div>
+                </div>
+
+                <!-- QRNG Content -->
+                <div id="content-qrng" class="defense-content hidden animate-fade-in">
+                    <div class="flex items-center mb-4">
+                        <span class="text-3xl mr-4">🎲</span>
+                        <div>
+                            <h3 class="text-2xl font-bold text-slate-900">量子随机数发生器 (Quantum Random Number Generator)</h3>
+                            <p class="text-sm font-semibold text-teal-600">安全范式：利用量子叠加态或相位噪声等量子效应生成不可预测的真随机数。</p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
+                        <div>
+                            <h4 class="font-bold text-emerald-700 border-b border-emerald-200 pb-2 mb-3">优势 (Pros)</h4>
+                            <ul class="space-y-2 text-sm text-slate-700">
+                                <li>➕ <strong>绝对熵源：</strong> 彻底消除伪随机数发生器（PRNG）种子被推测的风险，从密码系统最源头保障安全。</li>
+                                <li>➕ <strong>技术成熟且低成本：</strong> 芯片级QRNG已经商业化，可轻易集成到现有的服务器、HSM（硬件安全模块）甚至手机终端中。</li>
+                                <li>➕ <strong>无基建要求：</strong> 不需要改变现有的网络传输架构。</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-500 border-b border-slate-200 pb-2 mb-3">局限性 (Cons)</h4>
+                            <ul class="space-y-2 text-sm text-slate-700">
+                                <li>➖ <strong>只解决单点问题：</strong> QRNG只保证生成的密钥是安全的，无法保护密钥在网络中传输的过程，也不能抵御Shor算法对公钥体系的破解。必须与PQC或QKD结合使用。</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="mt-8 bg-teal-50 p-4 rounded border-l-4 border-teal-800">
+                        <strong class="text-teal-900 block mb-1">🏛️ 国安局部署定性：</strong>
+                        <p class="text-sm text-teal-800"><strong>要求立即全面部署。</strong> 这是性价比最高、见效最快的安全增强手段。应强制要求所有国家级证书颁发机构（CA）、关键密钥管理中心（KMS）立即采用通过国家密码管理局认证的物理QRNG硬件作为主熵源。</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Section 4: Academic Evaluation -->
-        <section id="evaluation" class="scroll-mt-24">
-            <div class="mb-8">
-                <h2 class="text-3xl font-bold text-slate-800 mb-4 border-l-4 border-emerald-600 pl-4">4. 文献的主要贡献与局限性分析</h2>
-                <p class="text-slate-600 text-lg">
-                    假设调研的文章属于"利用新型架构/纠错码大幅降低破解RSA资源"的典型类别，以下是批判性的学术评价。
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="glass-card p-6 rounded-xl border-t-4 border-t-emerald-500">
-                    <h3 class="text-xl font-bold text-emerald-800 mb-4 flex items-center"><span class="text-2xl mr-2">📈</span> 理论贡献 (Contributions)</h3>
-                    <ul class="space-y-3 text-slate-700">
-                        <li class="flex items-start">
-                            <span class="mr-2 text-emerald-500">✔</span>
-                            <span><strong>数学边界的推进：</strong> 证明了在理想假设下，通过特定拓扑结构（如qLDPC）能打破传统表面码的资源下限，对量子编码理论有启发意义。</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="mr-2 text-emerald-500">✔</span>
-                            <span><strong>架构探索：</strong> 探索了非近邻连接情况下的容错阈值，为未来可能出现的光量子计算或离子阱（具有更长距离连接性）提供了理论基石。</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="mr-2 text-emerald-500">✔</span>
-                            <span><strong>算法优化：</strong> 部分研究对Shor算法本身的模幂运算线路进行了深度压榨，减少了逻辑门深度（Depth）。</span>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="glass-card p-6 rounded-xl border-t-4 border-t-red-500">
-                    <h3 class="text-xl font-bold text-red-800 mb-4 flex items-center"><span class="text-2xl mr-2">📉</span> 核心局限性 (Limitations)</h3>
-                    <ul class="space-y-3 text-slate-700">
-                        <li class="flex items-start">
-                            <span class="mr-2 text-red-500">✖</span>
-                            <span><strong>逻辑门实现的黑盒化：</strong> 严重脱离实际，避而不谈qLDPC如何执行普适逻辑门。文章可能仅给出了存储态的开销，而忽略了执行Shor算法所需的巨量T门蒸馏开销。</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="mr-2 text-red-500">✖</span>
-                            <span><strong>物理连通性假设不现实：</strong> 假定硬件可以支持高维度的非局域连接，这在当前的超导量子计算机中会导致严重的串扰（Crosstalk），极大地拉低物理门保真度，使得纠错不降反升。</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="mr-2 text-red-500">✖</span>
-                            <span><strong>经典解码开销被忽略：</strong> qLDPC的解码算法（如BP+OSD）在经典计算机上极其耗时，极可能跟不上量子系统的退相干速度，导致"计算出错误在哪之前，量子态已经丢失"。</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- Section 5: National Security Recommendations -->
-        <section id="natsec" class="scroll-mt-24 mb-16">
-            <div class="mb-8">
-                <h2 class="text-3xl font-bold text-slate-800 mb-4 border-l-4 border-slate-800 pl-4">5. 对于国家安全部门的战略建议</h2>
-                <p class="text-slate-600 text-lg">
-                    面对量子霸权的潜在威胁以及学术界虚实难辨的突破宣告，国家安全体系应采取“不恐慌、早准备”的基调。
-                </p>
-            </div>
-
-            <div class="bg-slate-800 rounded-2xl p-8 text-slate-200 shadow-xl">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div>
-                        <h3 class="text-xl font-bold text-white mb-4 border-b border-slate-600 pb-2">行动建议</h3>
-                        <ol class="space-y-4 list-decimal pl-5 text-sm">
-                            <li class="pl-2">
-                                <strong class="text-blue-300 block text-base">立即启动PQC（后量子密码）迁移工程</strong>
-                                不要等待量子计算机造出来才行动。核心部门的机密数据（保密期超过10年的）目前正受到"先收集，后解密"策略的威胁。应密切跟进NIST标准（如ML-KEM, ML-DSA），在核心网络启动混合加密（现有机密+PQC）。
-                            </li>
-                            <li class="pl-2">
-                                <strong class="text-blue-300 block text-base">建立学术情报研判过滤器</strong>
-                                警惕"量子泡沫"。设立专门的独立技术委员会，对于声称"大幅降低破解RSA资源"的论文进行严格的工程可行性审查（重点审查其容错逻辑门方案、物理连接假设、串扰评估），避免基于不切实际的理论做出过度激进的政策反应。
-                            </li>
-                            <li class="pl-2">
-                                <strong class="text-blue-300 block text-base">强化对称加密基建</strong>
-                                确保所有敏感数据的静态加密和内部传输至少采用 AES-256 标准，并加固密钥管理基础设施（KMS），以彻底抵御Grover算法的威胁。
-                            </li>
-                        </ol>
-                    </div>
-                    <div class="bg-slate-700/50 p-6 rounded-xl border border-slate-600">
-                        <h3 class="text-lg font-bold text-white mb-4">敏捷密码学 (Crypto-Agility) 的重要性</h3>
-                        <p class="text-sm text-slate-300 leading-relaxed mb-4">
-                            未来的安全不依赖于找到某一个绝对不可破的算法，而是依赖于系统架构能够<span class="text-yellow-400 font-bold">在不停机的情况下，快速热插拔、替换底层加密算法</span>的能力。
-                        </p>
-                        <p class="text-sm text-slate-300 leading-relaxed">
-                            PQC算法目前仍在接受学术界的猛烈攻击，存在被经典算法攻破的风险（如此前的SIKE算法）。因此，国家级系统的改造重点应从"部署某一个PQC算法"转变为"建立支持多算法并存、可一键切换的敏捷密码架构"。
-                        </p>
-                    </div>
-                </div>
+        <!-- Section 4: Directives -->
+        <section id="directives" class="scroll-mt-20 mb-10">
+            <h2 class="text-2xl font-bold text-slate-900 mb-6 flex items-center">
+                <span class="bg-red-600 text-white w-8 h-8 flex items-center justify-center rounded-full mr-3 text-sm">4</span>
+                国家密码战略行动指令
+            </h2>
+            <div class="bg-slate-900 rounded-xl p-8 shadow-2xl relative overflow-hidden">
+                <!-- Decorative background elements -->
+                <div class="absolute -right-20 -top-20 opacity-10 text-[200px]">🛡️</div>
+                
+                <ol class="space-y-6 list-decimal pl-5 text-slate-300 relative z-10">
+                    <li class="pl-3 pb-4 border-b border-slate-700">
+                        <strong class="text-white text-lg block mb-2">全面实施敏捷密码架构 (Crypto-Agility)</strong>
+                        未来的安全网络绝不能硬编码任何单一算法。政务云、国防网的核心系统必须重构，确保在无需停机重编代码的情况下，能够平滑热插拔、替换底层的PQC算法。
+                    </li>
+                    <li class="pl-3 pb-4 border-b border-slate-700">
+                        <strong class="text-white text-lg block mb-2">推行“PQC+QRNG”双轨主力防御</strong>
+                        <ul class="list-disc pl-5 mt-2 text-sm space-y-2 text-slate-400">
+                            <li><strong>密钥生成层：</strong> 强制关键节点部署 <span class="text-teal-400">QRNG（量子随机数）</span>，确保初始熵源绝对安全。</li>
+                            <li><strong>传输与认证层：</strong> 放弃对QKD广域网组网的幻想，全面转向采用NIST/国密局推荐标准的 <span class="text-blue-400">PQC算法集群</span>，并在过渡期内强制使用混合模式（RSA/ECC + PQC）。</li>
+                        </ul>
+                    </li>
+                    <li class="pl-3">
+                        <strong class="text-white text-lg block mb-2">建立跨部门量子技术反欺骗评估机制</strong>
+                        鉴于qLDPC及其他新兴量子硬件架构的复杂性，针对全球范围内宣称“即将突破RSA”的学术成果和商业PR，国安局需联合顶尖科研院所，建立严格的<strong>工程可行性（逻辑门容错率、布线可行性、经典控制开销）</strong>过滤机制，防止因情报误判导致过度恐慌或不合理的基建浪费。
+                    </li>
+                </ol>
             </div>
         </section>
 
     </main>
 
-    <footer class="bg-slate-900 py-8 text-center text-slate-400 text-sm">
-        <p>本交互式报告由信息架构分析系统生成</p>
+    <footer class="bg-slate-950 py-8 text-center text-slate-500 text-sm border-t border-slate-800">
+        <p>绝密文档 | 未经授权严禁复制传播</p>
+        <p class="mt-2 text-xs font-mono opacity-50">SYS.GENERATED.2026 / INFO.ARCH.NSA.MODULE</p>
     </footer>
 
     <!-- JavaScript Logic -->
     <script>
-        // --- Obstacle details toggle ---
-        function toggleDetail(id) {
-            const el = document.getElementById(id);
-            if (el.classList.contains('hidden')) {
-                el.classList.remove('hidden');
-            } else {
+        // --- Defense Matrix Tab Logic ---
+        function showDefense(tabId, btn) {
+            // Hide all content
+            const contents = document.querySelectorAll('.defense-content');
+            contents.forEach(el => {
+                el.classList.remove('block');
                 el.classList.add('hidden');
-            }
-        }
-
-        // --- qLDPC Tab Switcher ---
-        function switchTab(tabId, btn) {
-            // Hide all tabs
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-            // Remove active style from all buttons
-            document.querySelectorAll('.tab-btn').forEach(el => {
-                el.classList.remove('tab-active', 'text-blue-600');
-                el.classList.add('text-slate-500');
             });
+
+            // Remove active styles from all buttons
+            const btns = document.querySelectorAll('.defense-tab-btn');
+            btns.forEach(el => {
+                el.classList.remove('tab-active', 'bg-slate-800', 'text-white');
+                el.classList.add('bg-slate-200', 'text-slate-600');
+            });
+
+            // Show selected content
+            document.getElementById('content-' + tabId).classList.remove('hidden');
+            document.getElementById('content-' + tabId).classList.add('block');
+
+            // Add active styles to clicked button
+            btn.classList.remove('bg-slate-200', 'text-slate-600', 'hover:bg-slate-300');
+            btn.classList.add('tab-active', 'bg-slate-800', 'text-white'); // Slate 800 matches NSA theme
             
-            // Show selected tab
-            document.getElementById(tabId).classList.remove('hidden');
-            // Add active style to clicked button
-            btn.classList.add('tab-active', 'text-blue-600');
-            btn.classList.remove('text-slate-500');
+            // Re-apply Tailwind classes specific to active state since JS manipulation can be tricky with complex tailwind states if not careful
+            btn.style.backgroundColor = '#1e293b';
+            btn.style.color = 'white';
+            
+            btns.forEach(otherBtn => {
+                if(otherBtn !== btn) {
+                    otherBtn.style.backgroundColor = '';
+                    otherBtn.style.color = '';
+                }
+            })
         }
 
-        // --- Chart.js Implementation for Qubit Scaling ---
+        // --- Chart.js Implementation for Threat Timeline ---
         document.addEventListener('DOMContentLoaded', function() {
             const ctx = document.getElementById('qubitChart').getContext('2d');
             
-            // Data representation (estimations for RSA-2048)
+            // Log scale data visualization tailored for serious reporting
             const data = {
-                labels: ['当前顶尖硬件', '理论qLDPC (缺逻辑门)', '表面码 Surface Code'],
+                labels: ['当前顶尖硬件', '理论qLDPC (假定有逻辑门)', '表面码 (主流保守估计)'],
                 datasets: [{
-                    label: '所需物理量子比特数量',
-                    data: [1000, 500000, 20000000],
+                    label: '物理量子比特需求',
+                    data: [1121, 500000, 20000000], // 1121 based on IBM Condor approximate
                     backgroundColor: [
-                        'rgba(148, 163, 184, 0.6)', // slate
-                        'rgba(168, 85, 247, 0.6)',  // purple
-                        'rgba(59, 130, 246, 0.6)'   // blue
+                        'rgba(148, 163, 184, 0.7)', // Slate
+                        'rgba(239, 68, 68, 0.7)',   // Red
+                        'rgba(30, 41, 59, 0.7)'     // Dark Slate
                     ],
                     borderColor: [
                         'rgb(71, 85, 105)',
-                        'rgb(126, 34, 206)',
-                        'rgb(29, 78, 216)'
+                        'rgb(185, 28, 28)',
+                        'rgb(15, 23, 42)'
                     ],
                     borderWidth: 1,
                     borderRadius: 4
@@ -446,23 +439,17 @@
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    indexAxis: 'y', // Horizontal bar for easier reading of labels
+                    indexAxis: 'y', // Horizontal
                     plugins: {
-                        legend: {
-                            display: false
-                        },
+                        legend: { display: false },
                         tooltip: {
+                            backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                            titleFont: { family: "'Noto Sans SC', sans-serif", size: 14 },
+                            bodyFont: { family: "'Noto Sans SC', sans-serif", size: 13 },
+                            padding: 12,
                             callbacks: {
                                 label: function(context) {
-                                    let label = context.dataset.label || '';
-                                    if (label) {
-                                        label += ': ';
-                                    }
-                                    if (context.parsed.x !== null) {
-                                        // Format large numbers
-                                        label += new Intl.NumberFormat('zh-CN').format(context.parsed.x);
-                                    }
-                                    return label;
+                                    return '需 ' + new Intl.NumberFormat('zh-CN').format(context.parsed.x) + ' 物理比特';
                                 }
                             }
                         }
@@ -472,30 +459,26 @@
                             type: 'logarithmic',
                             title: {
                                 display: true,
-                                text: '物理量子比特数 (对数刻度)',
-                                font: {
-                                    family: "'Noto Sans SC', sans-serif"
-                                }
+                                text: '所需规模量级 (对数)',
+                                font: { family: "'Noto Sans SC', sans-serif", weight: 'bold' }
                             },
                             ticks: {
-                                callback: function(value, index, values) {
-                                    // Custom formatting for log scale to look clean
-                                    if (value === 1000) return '1千';
+                                callback: function(value) {
+                                    if (value === 1000) return '1,000 (当前)';
                                     if (value === 100000) return '10万';
                                     if (value === 1000000) return '100万';
-                                    if (value === 10000000) return '1000万';
-                                    if (value === 100000000) return '1亿';
-                                    return null; // hide other ticks
+                                    if (value === 10000000) return '1,000万';
+                                    return null;
                                 }
-                            }
+                            },
+                            grid: { color: '#e2e8f0' }
                         },
                         y: {
                             ticks: {
-                                font: {
-                                    family: "'Noto Sans SC', sans-serif",
-                                    weight: 'bold'
-                                }
-                            }
+                                font: { family: "'Noto Sans SC', sans-serif", weight: 'bold' },
+                                color: '#1e293b'
+                            },
+                            grid: { display: false }
                         }
                     }
                 }
